@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 fluffy greetings · java & css magic 🌸</title>
+    <style>
+        /* ===== ALL THE CUTE CSS THINGS ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #fdeff2 0%, #f8e8e8 40%, #fff3e6 100%);
+            font-family: 'Segoe UI', 'Quicksand', system-ui, -apple-system, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* fluffy cloud decorations */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 1000px;
+            box-shadow: 0 20px 30px -10px rgba(255, 190, 200, 0.3);
+            z-index: 0;
+        }
+
+        .cloud1 {
+            width: 280px;
+            height: 90px;
+            top: 15%;
+            left: -40px;
+        }
+
+        .cloud1::before,
+        .cloud1::after {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: 50%;
+            box-shadow: inherit;
+        }
+
+        .cloud1::before {
+            width: 110px;
+            height: 110px;
+            top: -50px;
+            left: 30px;
+        }
+
+        .cloud1::after {
+            width: 150px;
+            height: 150px;
+            top: -70px;
+            left: 100px;
+        }
+
+        .cloud2 {
+            width: 350px;
+            height: 100px;
+            bottom: 12%;
+            right: -30px;
+        }
+
+        .cloud2::before,
+        .cloud2::after {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .cloud2::before {
+            width: 140px;
+            height: 140px;
+            top: -70px;
+            right: 60px;
+        }
+
+        .cloud2::after {
+            width: 100px;
+            height: 100px;
+            top: -40px;
+            right: 160px;
+        }
+
+        /* main cozy card */
+        .greeting-card {
+            background: rgba(255, 250, 245, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 56px 56px 56px 56px;
+            box-shadow: 0 30px 50px -20px rgba(255, 140, 170, 0.4),
+                        0 10px 20px -5px rgba(250, 200, 190, 0.3),
+                        inset 0 2px 5px rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            padding: 3rem 2.8rem 3.2rem;
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .greeting-card:hover {
+            transform: scale(1.01) translateY(-6px);
+            box-shadow: 0 40px 60px -15px #ffb6c1;
+        }
+
+        /* floating sparkles / tiny stars */
+        .sparkle {
+            position: absolute;
+            color: rgba(255, 215, 215, 0.6);
+            font-size: 1.8rem;
+            user-select: none;
+            z-index: 5;
+            animation: float 6s infinite alternate ease-in-out;
+        }
+
+        .sparkle1 { top: 10%; left: 8%; animation-delay: 0s; }
+        .sparkle2 { bottom: 18%; right: 12%; animation-delay: 1.2s; font-size: 2.4rem; }
+        .sparkle3 { top: 25%; right: 18%; animation-delay: 0.7s; }
+        .sparkle4 { bottom: 30%; left: 5%; animation-delay: 2s; opacity: 0.5; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-20px) rotate(8deg); }
+        }
+
+        /* avatar / cute icon */
+        .avatar-bunny {
+            background: #ffdddd;
+            width: 100px;
+            height: 100px;
+            border-radius: 50% 50% 40% 40%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 0 #e7b8b8, 0 12px 25px -8px #ffa5aa;
+            border: 3px solid white;
+            transition: 0.2s;
+        }
+
+        .avatar-bunny span {
+            font-size: 4.6rem;
+            line-height: 1;
+            transform: scale(1);
+            filter: drop-shadow(2px 4px 4px rgba(255, 80, 120, 0.2));
+        }
+
+        /* main greeting message */
+        .greeting-text {
+            font-size: 3.3rem;
+            font-weight: 650;
+            color: #6b4e5e;
+            letter-spacing: -0.5px;
+            word-break: break-word;
+            text-shadow: 3px 3px 0 #ffe2d4, 0 5px 15px #ffc1cc;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .greeting-sub {
+            font-size: 1.7rem;
+            font-weight: 400;
+            color: #b58b9a;
+            background: rgba(255, 240, 235, 0.7);
+            display: inline-block;
+            padding: 0.3rem 1.8rem;
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+            margin-bottom: 2.5rem;
+            border: 1px solid #fff2ed;
+            box-shadow: inset 0 1px 5px white;
+        }
+
+        /* interactive greeting display */
+        .greeting-box {
+            background: #fffbfb;
+            border-radius: 80px;
+            padding: 0.9rem 2rem 0.9rem 2.8rem;
+            border: 2px dashed #febfcb;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 1.2rem 0 2rem;
+            box-shadow: 0 4px 12px #ffd9df;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .greeting-box:hover {
+            background: #fff0f0;
+            transform: scale(1.02);
+            border: 2px solid #ffa5b9;
+        }
+
+        .greeting-emoji {
+            font-size: 2.6rem;
+            line-height: 1;
+            filter: drop-shadow(0 2px 2px #ffbfbf);
+        }
+
+        #greetingOutput {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #906b78;
+            background: transparent;
+            border: none;
+            outline: none;
+            text-align: center;
+            min-width: 200px;
+            max-width: 100%;
+            font-family: 'Quicksand', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        /* name input + button */
+        .name-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.9rem;
+            margin: 2rem 0 0.8rem;
+        }
+
+        .name-input-wrapper {
+            background: white;
+            border-radius: 60px;
+            padding: 0.3rem 0.3rem 0.3rem 1.8rem;
+            box-shadow: 0 6px 0 #f8cfd4, inset 0 2px 10px #ffe7e7;
+            border: 2px solid #ffffff;
+            display: flex;
+            align-items: center;
+            flex: 2 1 250px;
+        }
+
+        .name-input-wrapper span {
+            font-size: 1.8rem;
+            margin-right: 0.5rem;
+            filter: drop-shadow(0 2px 2px #ffb0b0);
+        }
+
+        #nameInput {
+            border: none;
+            background: transparent;
+            padding: 1rem 0.8rem 1rem 0.2rem;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #5f4a52;
+            width: 100%;
+            outline: none;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        #nameInput::placeholder {
+            color: #f4cfd6;
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+
+        .cute-button {
+            background: #ffb5c0;
+            border: 3px solid white;
+            padding: 1rem 2.2rem;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #63484e;
+            box-shadow: 0 7px 0 #da8e9b, 0 8px 18px #ffb6b6;
+            cursor: pointer;
+            transition: 0.1s linear;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            line-height: 1;
+            flex: 0 1 auto;
+            font-family: inherit;
+        }
+
+        .cute-button:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #da8e9b, 0 6px 14px #ffaaaa;
+        }
+
+        .cute-button:hover {
+            background: #ffc1cd;
+            color: #4d3740;
+        }
+
+        /* time display - extra java thing */
+        .time-container {
+            background: rgba(255, 235, 240, 0.6);
+            border-radius: 40px;
+            padding: 0.7rem 1.5rem;
+            margin: 1.5rem 0 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid white;
+            backdrop-filter: blur(5px);
+            font-size: 1.3rem;
+            color: #9b6f7c;
+        }
+
+        .time-emoji {
+            font-size: 1.8rem;
+            animation: twinkle 1.5s infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.7; transform: rotate(0deg); }
+            50% { opacity: 1; transform: rotate(5deg) scale(1.1); }
+        }
+
+        #currentTime {
+            font-weight: 600;
+            background: #ffe9ef;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        /* mood selector - more java fun */
+        .mood-section {
+            margin-top: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .mood-label {
+            font-size: 1.3rem;
+            color: #b38693;
+        }
+
+        #moodSelect {
+            background: white;
+            border: 2px solid #ffcfd8;
+            border-radius: 40px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.2rem;
+            color: #63484e;
+            outline: none;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .foot-note {
+            margin-top: 2.5rem;
+            font-size: 1.3rem;
+            color: #d6a2ae;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .foot-note span {
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); text-shadow: 0 0 5px #ffe2d4; }
+        }
+
+        /* responsive love */
+        @media (max-width: 500px) {
+            .greeting-card { padding: 2rem 1.2rem; }
+            .greeting-text { font-size: 2.6rem; }
+            .greeting-sub { font-size: 1.4rem; }
+            .name-section { flex-direction: column; }
+            .cute-button { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- background soft clouds -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+
+    <!-- floating sparkles -->
+    <div class="sparkle sparkle1">✨</div>
+    <div class="sparkle sparkle2">🌸</div>
+    <div class="sparkle sparkle3">☁️</div>
+    <div class="sparkle sparkle4">🍡</div>
+
+    <!-- main greeting container -->
+    <main class="greeting-card">
+        <!-- bunny / cozy avatar -->
+        <div class="avatar-bunny">
+            <span>🐇</span>
+        </div>
+
+        <!-- big warm title -->
+        <h1 class="greeting-text">
+            hello, sunshine!
+        </h1>
+        <div class="greeting-sub">
+            🩷 a little greeting just for you 🩷
+        </div>
+
+        <!-- interactive greeting that changes with user input (clickable!) -->
+        <div class="greeting-box" id="greetingBox">
+            <span class="greeting-emoji">🎀</span>
+            <span id="greetingOutput">friend</span>
+            <span class="greeting-emoji">🍰</span>
+        </div>
+
+        <!-- name input and button -->
+        <div class="name-section">
+            <div class="name-input-wrapper">
+                <span>🫧</span>
+                <input type="text" id="nameInput" placeholder="your name...">
+            </div>
+            <button class="cute-button" id="greetBtn">
+                <span>🕯️</span> greet me
+            </button>
+        </div>
+
+        <!-- JAVA SCRIPT (javascript) TIME DISPLAY - extra cute thing -->
+        <div class="time-container">
+            <span class="time-emoji">⏰</span>
+            <span>cozy time:</span>
+            <span id="currentTime">loading...</span>
+            <span class="time-emoji">🍵</span>
+        </div>
+
+        <!-- MOOD SELECTOR - more java interactive fun -->
+        <div class="mood-section">
+            <span class="mood-label">🌸 how are you?</span>
+            <select id="moodSelect">
+                <option value="happy">😊 happy</option>
+                <option value="cozy">☁️ cozy</option>
+                <option value="silly">🐸 silly</option>
+                <option value="sleepy">😴 sleepy</option>
+                <option value="sparkly">✨ sparkly</option>
+            </select>
+            <button class="cute-button" id="moodBtn" style="padding: 0.8rem 1.5rem; font-size: 1.2rem;">
+                <span>🪄</span> apply
+            </button>
+        </div>
+
+        <!-- foot note with surprise -->
+        <div class="foot-note">
+            <span>🧸</span> click the greeting or choose a mood <span>🧸</span>
+        </div>
+    </main>
+
+    <!-- ===== ALL THE JAVA (JAVASCRIPT) THINGS ===== -->
+    <script>
+        // ========== JAVA SCRIPT MAGIC ==========
+        (function() {
+            // Get all the elements
+            const greetingSpan = document.getElementById('greetingOutput');
+            const nameInput = document.getElementById('nameInput');
+            const greetBtn = document.getElementById('greetBtn');
+            const greetingBox = document.getElementById('greetingBox');
+            const moodSelect = document.getElementById('moodSelect');
+            const moodBtn = document.getElementById('moodBtn');
+            const currentTimeSpan = document.getElementById('currentTime');
+
+            // ===== CUTE DATA STUFF =====
+            const randomGreetings = [
+                'sweet pea', 'lovely', 'honey bun', 'dear heart', 'cupcake',
+                'moonchild', 'buttercup', 'snugglebug', 'pumpkin', 'sunbeam',
+                'cherry', 'peach', 'darling', 'bunny', 'sugar plum', 'starshine',
+                'cookie', 'honeybee', 'sprinkles', 'pudding'
+            ];
+
+            const moodEmojis = {
+                happy: '😊',
+                cozy: '☁️',
+                silly: '🐸',
+                sleepy: '😴',
+                sparkly: '✨'
+            };
+
+            const moodGreetings = {
+                happy: ['joy spark', 'sunshine', 'giggles', 'beam'],
+                cozy: ['snugglebug', 'warm heart', 'cuddle cloud', 'softie'],
+                silly: ['goofball', 'silly goose', 'wiggle worm', 'banana'],
+                sleepy: ['sleepyhead', 'dreamcloud', 'nap queen', 'snorer'],
+                sparkly: ['glitter bomb', 'shiny', 'starstuff', 'twinkle']
+            };
+
+            // ===== FUNCTION TO UPDATE GREETING =====
+            function setGreeting(name) {
+                let trimmed = name.trim();
+                if (trimmed === '') {
+                    // random cute nickname
+                    let randomIndex = Math.floor(Math.random() * randomGreetings.length);
+                    greetingSpan.textContent = randomGreetings[randomIndex];
+                } else {
+                    greetingSpan.textContent = trimmed + ' ♡';
+                }
+                
+                // add little animation
+                greetingBox.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    greetingBox.style.transform = '';
+                }, 150);
+            }
+
+            // ===== FUNCTION TO UPDATE TIME (JAVA SCRIPT STYLE) =====
+            function updateTime() {
+                const now = new Date();
+                let hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const ampm = hours >= 12 ? 'pm' : 'am';
+                
+                // convert to 12-hour format
+                hours = hours % 12;
+                hours = hours ? hours : 12; // 0 should be 12
+                
+                // get day
+                const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+                const day = days[now.getDay()];
+                
+                currentTimeSpan.textContent = `${hours}:${minutes}${ampm} · ${day}`;
+            }
+
+            // update time immediately and every second
+            updateTime();
+            setInterval(updateTime, 1000);
+
+            // ===== GREET BUTTON CLICK =====
+            greetBtn.addEventListener('click', function() {
+                setGreeting(nameInput.value);
+                
+                // button press effect
+                greetBtn.style.transform = 'scale(0.97)';
+                setTimeout(() => { greetBtn.style.transform = ''; }, 120);
+            });
+
+            // ===== ENTER KEY IN INPUT =====
+            nameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    setGreeting(nameInput.value);
+                    greetBtn.style.transform = 'scale(0.97)';
+                    setTimeout(() => { greetBtn.style.transform = ''; }, 120);
+                }
+            });
+
+            // ===== CLICK ON GREETING BOX = random greeting =====
+            greetingBox.addEventListener('click', function() {
+                let randomIndex = Math.floor(Math.random() * randomGreetings.length);
+                greetingSpan.textContent = randomGreetings[randomIndex];
+                
+                // sparkle effect on click
+                greetingBox.style.backgroundColor = '#fff0f7';
+                setTimeout(() => {
+                    greetingBox.style.backgroundColor = '';
+                }, 200);
+            });
+
+            // ===== MOOD BUTTON = change greeting based on mood =====
+            moodBtn.addEventListener('click', function() {
+                const selectedMood = moodSelect.value;
+                const moodList = moodGreetings[selectedMood];
+                const randomMoodGreeting = moodList[Math.floor(Math.random() * moodList.length)];
+                const moodEmoji = moodEmojis[selectedMood];
+                
+                greetingSpan.textContent = `${randomMoodGreeting} ${moodEmoji}`;
+                
+                // add extra animation
+                moodBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => { moodBtn.style.transform = ''; }, 100);
+                
+                // change avatar expression slightly? just for fun
+                const bunny = document.querySelector('.avatar-bunny span');
+                if (selectedMood === 'happy') bunny.textContent = '🐰';
+                else if (selectedMood === 'cozy') bunny.textContent = '☁️🐇';
+                else if (selectedMood === 'silly') bunny.textContent = '🐸🐇';
+                else if (selectedMood === 'sleepy') bunny.textContent = '😴🐇';
+                else if (selectedMood === 'sparkly') bunny.textContent = '✨🐇';
+                else bunny.textContent = '🐇';
+            });
+
+            // ===== MORE JAVA: DOUBLE CLICK ON CARD = surprise =====
+            const card = document.querySelector('.greeting-card');
+            card.addEventListener('dblclick', function() {
+                const superGreetings = ['✨ starlight ✨', '🌸 cutie pie 🌸', '🍭 sweetheart 🍭', '🦄 magical 🦄', '🌈 rainbow 🌈'];
+                const randomSuper = superGreetings[Math.floor(Math.random() * superGreetings.length)];
+                greetingSpan.textContent = randomSuper;
+                
+                // sparkly effect
+                document.body.style.background = 'linear-gradient(145deg, #ffe6f0, #fff0e6, #ffe6fa)';
+                setTimeout(() => {
+                    document.body.style.background = '';
+                }, 500);
+            });
+
+            // ===== INITIAL GREETING WITH TIME OF DAY =====
+            const hour = new Date().getHours();
+            let timeGreeting = '';
+            if (hour < 12) timeGreeting = 'morning sunshine';
+            else if (hour < 17) timeGreeting = 'sweet afternoon';
+            else if (hour < 20) timeGreeting = 'cozy evening';
+            else timeGreeting = 'starry night';
+
+            greetingSpan.textContent = timeGreeting;
+
+            // ===== RIGHT CLICK PROTECTION? just a cute message =====
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                greetingSpan.textContent = 'no no, be nice! 🥺';
+                setTimeout(() => {
+                    greetingSpan.textContent = timeGreeting;
+                }, 1000);
+            });
+
+            // ===== CONSOLE LOVE =====
+            console.log('%c🌸 java & css magic is here! 🌸', 'color: #ff99aa; font-size: 16px; font-weight: bold;');
+            console.log('%c✨ all the cute things for you ✨', 'color: #b3808f; font-size: 14px;');
+        })();
+    </script>
+</body>
+</html>
